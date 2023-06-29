@@ -1,4 +1,4 @@
-package ch4_입력;
+package ch04_입력;
 
 import java.util.Scanner;
 

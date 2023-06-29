@@ -1,6 +1,6 @@
-package ch9_접근지정자.main;
+package ch09_접근지정자.main;
 
-import ch9_접근지정자.Student2;
+import ch09_접근지정자.Student2;
 
 public class StudentMain2 {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package ch6_반복_0627;
+package ch06_반복;
 
 import java.util.Scanner;
 

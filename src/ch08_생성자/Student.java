@@ -1,4 +1,4 @@
-package ch8_생성자;
+package ch08_생성자;
 
 public class Student {
 

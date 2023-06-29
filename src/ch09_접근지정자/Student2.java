@@ -1,4 +1,4 @@
-package ch9_접근지정자;
+package ch09_접근지정자;
 
 public class Student2 {
     private String name; //private을 하는 순간, Main클래스에서 's.name'은 작동x

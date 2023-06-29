@@ -1,4 +1,4 @@
-package ch8_생성자;
+package ch08_생성자;
 
 public class Constructor01 {
         //클래스 명 외에는 모두 소문자로 시작한다고 했는데, 생성자는 다르다!

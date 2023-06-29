@@ -1,4 +1,4 @@
-package ch5_조건;
+package ch05_조건;
 
 import java.util.Scanner;
 

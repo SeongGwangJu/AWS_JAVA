@@ -1,4 +1,4 @@
-package ch1_출력_0623;
+package ch01_출력_0623;
 
 public class HelloJava {
     public static void main(String[] args) {

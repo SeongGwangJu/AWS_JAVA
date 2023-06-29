@@ -1,4 +1,4 @@
-package ch2_변수;
+package ch02_변수;
 
 public class Variable {
     public static void main(String[] args) {

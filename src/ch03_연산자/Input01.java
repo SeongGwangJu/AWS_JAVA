@@ -1,4 +1,4 @@
-package ch3_연산자_0626;
+package ch03_연산자;
 
 import java.util.Scanner; //외부에 있는 기능을 내부로 가져온다.
 

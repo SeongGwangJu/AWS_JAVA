@@ -1,4 +1,4 @@
-package ch5_조건;
+package ch05_조건;
 
 public class If01 {
     public static void main(String[] args) {

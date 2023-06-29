@@ -1,4 +1,4 @@
-package ch7_클래스;
+package ch07_클래스;
 
 public class Method01 {
     //이 클래스 내용은 강사님 설명
