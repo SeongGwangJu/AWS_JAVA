@@ -1,5 +1,7 @@
 package ch14_싱글톤;
 
+import ch14_싱글톤.SamsungFactory;
+
 import java.time.LocalDate;
 import java.util.Date;
 

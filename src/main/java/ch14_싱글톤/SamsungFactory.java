@@ -1,5 +1,4 @@
 package ch14_싱글톤;
-
 public class SamsungFactory {
 
     public Galaxy produce(String model) {

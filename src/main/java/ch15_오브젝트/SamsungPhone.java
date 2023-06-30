@@ -10,4 +10,6 @@ public class SamsungPhone {
         //자료형 분리할 때 오브젝트를 쓴다
         this.model = model;
     }
+
+
 }
