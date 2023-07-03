@@ -20,7 +20,7 @@ public class UserTest {
     }
 
     //정적 내부클래스
-    public static class UserTestTest {
+    public static class UserTestTest { //생성 없이 쓰기위해 static을 부여.
 
         //인스턴스 메서드
         // UserTestTest 클래스의 인스턴스를 생성한 후 해당 객체의 인스턴스를 통해 호출할 수 있다.

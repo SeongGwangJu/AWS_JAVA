@@ -8,7 +8,8 @@ public class KoreaUserBuilder2 {
     private String name;
     private String email;
 
-    public KoreaUser build() {return new KoreaUser
+    public KoreaUser build() {
+        return new KoreaUser
             (userId, username,
                 password, name, email);
     }
