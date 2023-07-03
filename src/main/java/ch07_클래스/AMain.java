@@ -3,7 +3,7 @@ package ch07_클래스;
 public class AMain {
     public static void main(String[] args) {
         //클래스 생성예제
-        A a = new A(); //생성 ->인스턴스 생성, 동적메모리 할당.
+        A a = new A(); //생성 ->'a' 인스턴스 생성, 동적메모리 할당.
         System.out.println(a); // a의 주소값을 출력
         System.out.println(a.num1);
 
