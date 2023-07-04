@@ -9,8 +9,8 @@ import lombok.experimental.SuperBuilder;
 @ToString
 
 public class SignupUser extends AccountUser{
-//    private  String username;
-//    private  String password; AccountUser 클래스를 위해 지움만들어서 지움.
+    private  String username;
+    private  String password; //AccountUser 클래스를 위해 지움. 만들어서 지움.
     private  String  name;
     private  String email;
 

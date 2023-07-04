@@ -2,7 +2,7 @@ package ch22_익명클래스;
 
 public class AuthorityMain {
     public static void main(String[] args) {
-        GrantiedAuthorities authorities = new GrantiedAuthorities() {
+        GrantedAuthorities authorities = new GrantedAuthorities() {
 
             @Override
             public String getAuthority() {
@@ -10,23 +10,17 @@ public class AuthorityMain {
                 return "ROLE_USER";
             }
         };
-//14,16,17 에러발생 -> 주석처리
-//        System.out.println(authorities.getAuthorities);
+        System.out.println(authorities.getAuthority());
+        A a = new A();
+        System.out.println(a.getAuthority());
+            }
+        }
 
-//        A a = new A();
-//        /System.out.println(a.getAuthortity);
+        class A implements GrantedAuthorities{
+
+            @Override
+            public String getAuthority() {
+                System.out.println("두번째 권한 출력");
+                return "ROLE_ADMIN";
     }
 }
-/*
-class A implements GrantiedAuthorities {
-
-        @Override
-    public String getAuthortity; {
-        System.out.println("두번째 권한 출력");
-        return "ROLE_ADMIN";
-    }
-
-
-
-}
-*/

@@ -10,7 +10,7 @@ public class KoreaUserMain {
             "1234", "김준일", "aaa@gmail.com"); //원래 쓰던 이 방식이 아니라!!!
     */
 
-        KoreaUser koreaUser = KoreaUser.Builder()
+        KoreaUser k = KoreaUser.Builder()
                 .userId(1)
                 .username("aaa")
                 .password("1234")
@@ -27,11 +27,11 @@ public class KoreaUserMain {
         =>빌더클래스에서 빌더라는 메서드(스태틱)를 만든다.
      */
 
-        System.out.println(koreaUser.getUserId());
-        System.out.println(koreaUser.getUsername());
-        System.out.println(koreaUser.getPassword());
-        System.out.println(koreaUser.getUsername());
-        System.out.println(koreaUser.getEmail());
-        System.out.println(koreaUser.getName());
+        System.out.println(k.getUserId());
+        System.out.println(k.getUsername());
+        System.out.println(k.getPassword());
+        System.out.println(k.getUsername());
+        System.out.println(k.getEmail());
+        System.out.println(k.getName());
     }
 }

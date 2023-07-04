@@ -13,8 +13,8 @@ public class ResponseMain {
 
 
         SignupUser signupUser = SignupUser.builder()
-    //            .username("aaa")
-    //            .password("1234")
+                .username("aaa")
+                .password("1234")
                 .name("주성광")
                 .email("aaa@gmail.com")
                 .build();
@@ -27,8 +27,8 @@ public class ResponseMain {
         System.out.println(response2);
 
         AccountUser accountUser = AccountUser.builder()
-                .username("aaa")
-                .password("1234")
+                .username("AAA")
+                .password("4321")
                 .build();
 
         // '<?'> : 와일드카드
@@ -44,6 +44,10 @@ public class ResponseMain {
 
         Response<UpdateUser> response4 = new Response<UpdateUser>(300, updateUser);
 
+        System.out.println("printResonse3");
+        printResponse(response3);
+
+        System.out.println("printResonse4");
         printResponse(response4);
 
     }
