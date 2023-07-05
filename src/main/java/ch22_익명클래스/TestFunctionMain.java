@@ -76,7 +76,7 @@ public class TestFunctionMain {
         consumerStr.accept("주성광");
 
         BiConsumer<String, Integer> biConsumer = (name, age) -> {
-            System.out.println("이름 : " + name);
+            System.out.println("bi이름 : " + name);
             System.out.println("나이 : " + age);
         };
 
