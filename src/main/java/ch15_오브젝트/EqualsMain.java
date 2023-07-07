@@ -6,7 +6,7 @@ import lombok.*;
 //@Setter
 
 
-/* public class EqualsMain {
+ public class EqualsMain {
     public static void main(String[] args) {
         KoreaStudent koreaStudent1 = new KoreaStudent("20230001", "변정민");
         KoreaStudent koreaStudent2 = new KoreaStudent("20230002", "정가영");
@@ -25,4 +25,4 @@ import lombok.*;
         System.out.println(koreaStudent1.equals(koreaStudent3));
 
     }
-} */
+}

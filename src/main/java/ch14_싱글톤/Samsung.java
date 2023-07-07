@@ -8,7 +8,6 @@ public class Samsung {
     //어디서든 쓸 수 있도록 static으로 바꾸자
     private static Samsung instance; //삼성 객체를 담을 수 있는 인스턴스변수
 
-
     private String companyName;
     private int autoIncrementSerialNumber
             = LocalDate.now().getYear() * 10000; //LocalDate라는 클래스, now스태틱 메소드

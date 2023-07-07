@@ -11,13 +11,13 @@ public class Json02 {
                 .password("1234")
                 .build();
 
-        System.out.println(jsonUser);
+        System.out.println(jsonUser+ " 1");
 
         String jsonData = gson.toJson(jsonUser);
-        System.out.println(jsonData);
+        System.out.println(jsonData + " 2");
 
         JsonUser jsonUser2 = gson.fromJson(jsonData, JsonUser.class);
-        System.out.println(jsonUser2);
+        System.out.println(jsonUser2 + " 3");
 
     }
 }

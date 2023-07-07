@@ -15,6 +15,7 @@ public class GetClassMain {
         System.out.println("============메서드 확인 ");
         //koreaStudent 클래스 안에 선언된 메서드를 확인
         Method[] methods = koreaStudent.getClass().getDeclaredMethods();
+        System.out.println(methods);
         for (int i = 0; i < methods.length; i++) {
             System.out.println("getName : " + methods[i].getName()); //메소드의 이름들 출력
             System.out.println("ReturnType : " + methods[i].getReturnType());

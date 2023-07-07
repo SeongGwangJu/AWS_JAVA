@@ -37,6 +37,7 @@ public class StringArrayListMain {
         System.out.println(arraylist.remove(3));
         System.out.println(arraylist);
         arraylist.set(0 , "h");
+        System.out.println("===");
         System.out.println(arraylist);
 
         //arraylist.addAll('가');

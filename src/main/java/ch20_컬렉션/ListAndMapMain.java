@@ -18,6 +18,7 @@ public class ListAndMapMain {
         //System.out.println(testUsers.get(username));
 
         Map<String, Object> responseData = new HashMap<>(); //Object타입 기억!
+
         responseData.put("testUserList", testUsers); //위의 List testUsers를 불러옴.
         responseData.put("Statuscode", "OK" );
 
