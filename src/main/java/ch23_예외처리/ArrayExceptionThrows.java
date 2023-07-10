@@ -1,6 +1,4 @@
-package ch_23_예외처리;
-
-import java.net.Inet4Address;
+package ch23_예외처리;
 
 public class ArrayExceptionThrows {
     public static void main(String[] args) {

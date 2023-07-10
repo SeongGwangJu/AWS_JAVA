@@ -1,4 +1,4 @@
-package ch_24_쓰레드;
+package ch24_쓰레드;
 
 public class ThreadTest implements Runnable{
 

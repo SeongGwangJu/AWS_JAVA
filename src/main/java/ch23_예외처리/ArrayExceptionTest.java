@@ -1,4 +1,4 @@
-package ch_23_예외처리;
+package ch23_예외처리;
 
 public class ArrayExceptionTest { //
 
