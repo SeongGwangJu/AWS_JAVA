@@ -12,7 +12,7 @@ class SubjectService {
 
     public void showSubjects() {
         int length = subjects.size();
-
+        System.out.println(subjects.size());
         for(int i = 0; i <length; i++) {
             System.out.println(subjects.get(i));
         }

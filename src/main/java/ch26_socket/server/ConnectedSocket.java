@@ -1,0 +1,30 @@
+package ch26_socket.server;
+
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public class ConnectedSocket extends Thread {
+
+	private final Socket socket;
+
+	@Override
+	public void run() {
+		BufferedReader bufferedReader = null;
+		
+		try {
+			while(true) {
+			bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream())); //입력을 기다림
+			String requestBody = bufferedReader.readLine();
+			System.out.println("입력데이터 : " + requestBody);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			}
+		}
+	}
