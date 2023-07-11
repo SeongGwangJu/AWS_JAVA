@@ -12,17 +12,17 @@ import java.util.List;
 public class SImpleServer {
 	public static void main(String[] args) {
 		try {
-			System.out.println("서버실행");
 			//서버소켓 객체생성, 포트번호 8000으로 생성. 서버소켓? 클라이언트의 연결요청 수락
 			ServerSocket serverSocket = new ServerSocket(8000);
-
+			System.out.println("서버실행");
 			List<Socket> socketList = new ArrayList<>();
 
 			while(true) {
 				Socket socket = serverSocket.accept();
 				socketList.add(socket);
 
-				Thread thread = new Thread(() -> { 			//스레드 생성 + run메서드. 생성되면 독립적으로 실행! 클라이언트로 부터 데이터 in.
+				//스레드 생성 + run메서드. 생성되면 독립적으로 실행! 클라이언트로 부터 데이터 in.
+				Thread thread = new Thread(() -> {
 					Socket threadSocket = socket;
 
 				while(true) {									//무한 => 지속적으로 데이터를 받기 위함.

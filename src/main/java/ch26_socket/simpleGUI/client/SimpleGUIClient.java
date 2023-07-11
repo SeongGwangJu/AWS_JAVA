@@ -1,5 +1,7 @@
 package ch26_socket.simpleGUI.client;
 
+import lombok.Getter;
+
 import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -16,25 +18,38 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+@Getter
 public class SimpleGUIClient extends JFrame {
-	
+
+	private static SimpleGUIClient instance;
+	public static SimpleGUIClient getInstance() {
+		if (instance == null) {
+			instance = new SimpleGUIClient();
+		}
+		return instance;
+	}
 	//내가 추가한 멤버변수
 	private String username;	//채팅한 사람
-	private Socket socket; 
+	private Socket socket;
 
 	private static PrintWriter printWriter;
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextArea textArea;
+
 	
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SimpleGUIClient frame = new SimpleGUIClient();
+					SimpleGUIClient frame = SimpleGUIClient.getInstance();
 					frame.setVisible(true);
+
+					ClientReceiver clientReceiver = new ClientReceiver();
+					clientReceiver.start(); //run 실행
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,13 +57,11 @@ public class SimpleGUIClient extends JFrame {
 		});
 	}
 
-
-
 	public SimpleGUIClient() {
-		
+
 		//아이디 입력창
-		username = JOptionPane.showInputDialog(contentPane, "아이디를 입력하세요."); 
-		
+		username = JOptionPane.showInputDialog(contentPane, "아이디를 입력하세요.");
+
 		//빈값이면 그냥 종료시켜버린다
 		if(Objects.isNull(username) || username.isBlank())  {
 			System.exit(0);
@@ -58,7 +71,7 @@ public class SimpleGUIClient extends JFrame {
 			//생성 되는 순간 서버의 accept();가 반응한다!
 			socket = new Socket("127.0.0.1", 8000);
 
-			// PrintWriter 초기화
+			// PrintWriter 초기화 by GPT
 			printWriter = new PrintWriter(socket.getOutputStream(), true);
 
 		} catch (IOException e) {
@@ -76,9 +89,11 @@ public class SimpleGUIClient extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 10, 410, 195);
 		contentPane.add(scrollPane);
-		
-		JTextArea textArea = new JTextArea();
+
+		//메세지를 띄어줄 영역
+		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
+
 		
 		textField = new JTextField();
 		textField.addKeyListener(new KeyAdapter() {
@@ -87,18 +102,14 @@ public class SimpleGUIClient extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 
-					// Enter 키를 눌렀을 때 sendMessage() 메소드 호출
-					sendMessage();
-
-					/*try {
-						PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
+					try {
+						PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
 						printWriter.println(username + " : " + textField.getText());
-
-						//텍스트 영역에 데이터를 추가하는 로직 추가 필요.
-
 					} catch ( IOException e1 ) {
 						e1.printStackTrace();
-					}*/
+					} finally {
+						textField.setText("");
+					}
 				}
 			};
 		}
@@ -107,11 +118,8 @@ public class SimpleGUIClient extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 	}
-	private void sendMessage() {
-		String message = textField.getText(); //텍스트필드 내용 가져오기
 
-		printWriter.println(username + " : " + message); // 서버로 메시지 전송
 
-		textField.setText(""); // 메시지 전송 후 텍스트 필드 비우기
-	}
+
+
 }
