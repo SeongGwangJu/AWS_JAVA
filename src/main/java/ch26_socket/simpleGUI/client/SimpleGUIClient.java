@@ -1,46 +1,52 @@
 package ch26_socket.simpleGUI.client;
 
-import lombok.Getter;
-
 import java.awt.EventQueue;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Objects;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import ch26_socket.simpleGUI.client.dto.RequestBodyDto;
+import ch26_socket.simpleGUI.client.dto.SendMessage;
+import lombok.Getter;
+
 @Getter
 public class SimpleGUIClient extends JFrame {
-
+	
 	private static SimpleGUIClient instance;
 	public static SimpleGUIClient getInstance() {
-		if (instance == null) {
+		if(instance == null) {
 			instance = new SimpleGUIClient();
 		}
 		return instance;
 	}
-	//내가 추가한 멤버변수
-	private String username;	//채팅한 사람
+	
+	private String username;
 	private Socket socket;
-
-	private static PrintWriter printWriter;
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextArea textArea;
-
 	
-	public static void main(String[] args) {
+	private JScrollPane userListScrollPane;
+	private DefaultListModel<String> userListModel;
+	private JList userList;
+	
+	
 
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -48,8 +54,12 @@ public class SimpleGUIClient extends JFrame {
 					frame.setVisible(true);
 
 					ClientReceiver clientReceiver = new ClientReceiver();
-					clientReceiver.start(); //run 실행
-
+					clientReceiver.start();
+					
+					//서버로 join과 username을 전송.
+					RequestBodyDto<String> requestBodyDto = new RequestBodyDto<String>("join", frame.username);
+					ClientSender.getInstance().send(requestBodyDto);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,27 +67,29 @@ public class SimpleGUIClient extends JFrame {
 		});
 	}
 
+	
+	
 	public SimpleGUIClient() {
-
-		//아이디 입력창
-		username = JOptionPane.showInputDialog(contentPane, "아이디를 입력하세요.");
-
-		//빈값이면 그냥 종료시켜버린다
-		if(Objects.isNull(username) || username.isBlank())  {
+	
+		username = JOptionPane.showInputDialog(contentPane, "아이디를 입력하세요.");			
+		
+		if(Objects.isNull(username)) {
 			System.exit(0);
 		}
-
+		
+		if(username.isBlank()) {
+			System.exit(0);
+		}
+		
 		try {
-			//생성 되는 순간 서버의 accept();가 반응한다!
 			socket = new Socket("127.0.0.1", 8000);
-
-			// PrintWriter 초기화 by GPT
-			printWriter = new PrintWriter(socket.getOutputStream(), true);
-
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -87,39 +99,51 @@ public class SimpleGUIClient extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 10, 410, 195);
+		scrollPane.setBounds(12, 10, 270, 203);
 		contentPane.add(scrollPane);
-
-		//메세지를 띄어줄 영역
+		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
-
 		
 		textField = new JTextField();
 		textField.addKeyListener(new KeyAdapter() {
-
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-
-					try {
-						PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-						printWriter.println(username + " : " + textField.getText());
-					} catch ( IOException e1 ) {
-						e1.printStackTrace();
-					} finally {
-						textField.setText("");
-					}
+					
+					SendMessage sendMessage = SendMessage.builder()
+							.fromUsername(username)
+							.messageBody(textField.getText())
+							.build();
+					
+					RequestBodyDto<SendMessage> requestBodyDto = 
+							new RequestBodyDto<>("sendMessage", sendMessage); 
+					
+					ClientSender.getInstance().send(requestBodyDto);
+					textField.setText("");
 				}
-			};
-		}
-		);
-		textField.setBounds(12, 213, 410, 38);
+			}
+		});
+		textField.setBounds(12, 223, 410, 28);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		
+		userListScrollPane = new JScrollPane();
+		userListScrollPane.setBounds(294, 10, 128, 203);
+		contentPane.add(userListScrollPane);
+		
+		userListModel = new DefaultListModel<>();
+		userList = new JList(userListModel);
+		userListScrollPane.setViewportView(userList);
+		
 	}
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
