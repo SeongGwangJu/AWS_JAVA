@@ -24,7 +24,8 @@ import lombok.Getter;
 
 @Getter
 public class SimpleGUIClient extends JFrame {
-	
+
+	//싱글톤 패턴 구현
 	private static SimpleGUIClient instance;
 	public static SimpleGUIClient getInstance() {
 		if(instance == null) {
@@ -32,7 +33,8 @@ public class SimpleGUIClient extends JFrame {
 		}
 		return instance;
 	}
-	
+
+	//변수선언 및 GUI요소
 	private String username;
 	private Socket socket;
 
@@ -44,33 +46,32 @@ public class SimpleGUIClient extends JFrame {
 	private DefaultListModel<String> userListModel;
 	private JList userList;
 	
-	
 
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SimpleGUIClient frame = SimpleGUIClient.getInstance();
-					frame.setVisible(true);
+					SimpleGUIClient frame = SimpleGUIClient.getInstance(); //인스턴스 생성
+					frame.setVisible(true); //GUI창 표시
 
-					ClientReceiver clientReceiver = new ClientReceiver();
-					clientReceiver.start();
+					ClientReceiver clientReceiver = new ClientReceiver(); //리시버 객체생성
+					clientReceiver.start(); //run 메서드 실행
 					
-					//서버로 join과 username을 전송.
-					RequestBodyDto<String> requestBodyDto = new RequestBodyDto<String>("join", frame.username);
+					//유저네임과 join 리소스를 갖는 객체 생성 + 서버전송.
+					RequestBodyDto<String> requestBodyDto
+							= new RequestBodyDto<String>("join", frame.username);
 					ClientSender.getInstance().send(requestBodyDto);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
-	
-	
+	//클라이언트 창 생성.
 	public SimpleGUIClient() {
-	
+		//아이디 입력 및 검증
 		username = JOptionPane.showInputDialog(contentPane, "아이디를 입력하세요.");			
 		
 		if(Objects.isNull(username)) {
@@ -80,16 +81,16 @@ public class SimpleGUIClient extends JFrame {
 		if(username.isBlank()) {
 			System.exit(0);
 		}
-		
+
+		//소켓 생성 및 연결
 		try {
 			socket = new Socket("127.0.0.1", 8000);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
+ 		//GUI초기화 및 배치
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -104,26 +105,30 @@ public class SimpleGUIClient extends JFrame {
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
-		
+
+		//채팅 입력창 이벤트
 		textField = new JTextField();
 		textField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-					
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) { //엔터 누르면
+
+					//메세지와 사용자 이름을 담은 sendMessage객체 생성
 					SendMessage sendMessage = SendMessage.builder()
 							.fromUsername(username)
 							.messageBody(textField.getText())
 							.build();
-					
+
+					//"SendMessage"리소스를 담은 ReqBD 생성 및 서버 전송 및 텍스트필드 초기화
+					//서버에서는 input스트림을 통해 읽어온 뒤 컨트롤러에 전송.
 					RequestBodyDto<SendMessage> requestBodyDto = 
-							new RequestBodyDto<>("sendMessage", sendMessage); 
-					
+							new RequestBodyDto<>("SendMessage", sendMessage);
 					ClientSender.getInstance().send(requestBodyDto);
 					textField.setText("");
 				}
 			}
 		});
+
 		textField.setBounds(12, 223, 410, 28);
 		contentPane.add(textField);
 		textField.setColumns(10);

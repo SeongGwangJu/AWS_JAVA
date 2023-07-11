@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleGUIServer {
-	
+
+	//연결된 소켓들을 저장할 List 선언
 	public static List<ConnectedSocket> connectedSocketList = new ArrayList<>();
 	
 	public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class SimpleGUIServer {
 			
 			while(true) {
 				Socket socket = serverSocket.accept();
-				System.out.println("접속");
+				System.out.println("서버에 누군가 접속했다");
 				ConnectedSocket connectedSocket = new ConnectedSocket(socket);
 				connectedSocket.start();
 				connectedSocketList.add(connectedSocket);

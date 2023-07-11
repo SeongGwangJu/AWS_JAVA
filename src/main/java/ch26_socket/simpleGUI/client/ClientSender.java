@@ -24,11 +24,12 @@ public class ClientSender {
 		return instance;
 	}
 	
-	public void send(RequestBodyDto<?> requestBodyDto) {
+	public void send(RequestBodyDto requestBodyDto) { //클래스의 객체
 		try {
-			PrintWriter printWriter = 
+			PrintWriter printWriter =  //문자열 데이터를 출력할 수 있음
+					//클라이언트클래스의 소켓의 출력스트림.
 					new PrintWriter(SimpleGUIClient.getInstance().getSocket().getOutputStream(), true);
-			printWriter.println(gson.toJson(requestBodyDto));
+			printWriter.println(gson.toJson(requestBodyDto)); //직렬화된 문자열로 변환 후 서버로전송.
 			
 		} catch (IOException e) {
 			e.printStackTrace();
