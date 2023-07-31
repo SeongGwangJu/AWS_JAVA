@@ -30,6 +30,7 @@ public class SimpleGUIClient extends JFrame {
 	public static SimpleGUIClient getInstance() {
 		if(instance == null) {
 			instance = new SimpleGUIClient();
+
 		}
 		return instance;
 	}
@@ -54,6 +55,7 @@ public class SimpleGUIClient extends JFrame {
 				try {
 					SimpleGUIClient frame = SimpleGUIClient.getInstance(); //인스턴스 생성
 					frame.setVisible(true); //GUI창 표시
+					System.out.println("GetInstance");
 
 					ClientReceiver clientReceiver = new ClientReceiver(); //리시버 객체생성
 					clientReceiver.start(); //run 메서드 실행

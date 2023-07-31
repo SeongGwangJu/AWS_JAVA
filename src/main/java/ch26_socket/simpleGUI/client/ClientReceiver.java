@@ -17,11 +17,11 @@ public class ClientReceiver extends Thread {
 		SimpleGUIClient simpleGUIClient = SimpleGUIClient.getInstance();
 		while(true) {
 			try {
-				System.out.println("Str reqBody에 내용을 저장하고 컨트롤러로 전송.");
+
 				BufferedReader bufferedReader = 
 						new BufferedReader(new InputStreamReader(simpleGUIClient.getSocket().getInputStream()));
 				String requestBody = bufferedReader.readLine();
-				
+				System.out.println("리시버 : Str reqBody에 내용을 저장하고 컨트롤러로 전송.");
 				requestController(requestBody);
 				
 			} catch (IOException e) {
@@ -39,7 +39,7 @@ public class ClientReceiver extends Thread {
 			//textArea에 문자 뿌려줌
 			case "showMessage" :
 				//다운캐스팅이 필요하지 않으므로
-				System.out.println("messageContent에 fromJson.getBody를 저장하고 textArea에 append.");
+				System.out.println("ShowMessage : messageContent에 fromJson.getBody를 저장하고 textArea에 append.");
 				String messageContent = (String) gson.fromJson(requestBody, RequestBodyDto.class).getBody(); //바디를 반환
 				
 				//append : 문자열 마지막에 추가.
@@ -49,7 +49,7 @@ public class ClientReceiver extends Thread {
 
 			//유저리스트 업데이트
 			case "updateUserList" :
-				System.out.println("usernameList를 생성하고 추가해준다.");
+				System.out.println("Update : usernameList를 생성하고 추가해준다.");
 				List<String> usernameList = (List<String>) gson.fromJson(requestBody, RequestBodyDto.class).getBody();
 				SimpleGUIClient.getInstance().getUserListModel().clear();
 				SimpleGUIClient.getInstance().getUserListModel().addAll(usernameList);
